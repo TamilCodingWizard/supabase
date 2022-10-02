@@ -3,13 +3,24 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createTheme,ThemeProvider } from '@mui/material';
+import { createTheme,CssBaseline,ThemeProvider } from '@mui/material';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const theme = createTheme({
   typography: {
     fontFamily:'Poppins'
+  },
+  palette: {
+    primary: {
+      main:'#212121'
+    },
+    background: {
+      default:'#212121'
+    },
+    text: {
+      primary:'#fff'
+    }
   }
 })
 
@@ -18,6 +29,7 @@ root.render(
   
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      <CssBaseline/>
       <App />
     </ThemeProvider>
   </React.StrictMode>

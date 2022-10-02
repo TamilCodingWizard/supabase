@@ -5,15 +5,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./screens/Home";
 import Create from "./screens/Create";
 import Navbar from "./components/Navbar";
+import { Container } from "@mui/material";
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar/>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<Create />} />
-        </Routes>
+        <Navbar />
+        <Container>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/create" element={<Create />} />
+          </Routes>
+        </Container>
       </BrowserRouter>
     </>
   );
