@@ -11,7 +11,7 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
-        <Container>
+        <Container sx={{marginTop:5}}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<Create />} />
