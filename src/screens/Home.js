@@ -29,12 +29,19 @@ const Home = () => {
       cgpa: 5,
     },
   ]);
+
+  const deleteStudent = (id) => {
+    setStudents((prevStudents) => {
+      return prevStudents.filter((student) => student.id !== id)
+    })
+  }
+
   return (
     <Grid container spacing={5}>
       {students &&
         students.map((student) => {
           return <Grid item lg={4} xl={4} key={student.id}>
-            <StudentCard student={student}/>
+            <StudentCard student={student} deleteStudent={deleteStudent}/>
         </Grid>
         })}
     </Grid>

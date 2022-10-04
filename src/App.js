@@ -6,6 +6,7 @@ import Home from "./screens/Home";
 import Create from "./screens/Create";
 import Navbar from "./components/Navbar";
 import { Container } from "@mui/material";
+import Update from "./screens/Update";
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<Create />} />
+            <Route path="/:id" element={<Update/>}/>
           </Routes>
         </Container>
       </BrowserRouter>
