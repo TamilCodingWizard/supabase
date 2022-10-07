@@ -1,8 +1,8 @@
-import { Box, Button, FormControl, Rating, TextField } from "@mui/material";
+import { Box, Button, FormControl, Rating, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { styled } from "@mui/material";
 
-const StyledBox = styled(Box)({
+export const StyledBox = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -10,7 +10,7 @@ const StyledBox = styled(Box)({
   flexDirection: "column",
 });
 
-const StyledFormControl = styled(FormControl)({
+export const StyledFormControl = styled(FormControl)({
   backgroundColor: "#2d2d2d",
   margin: "20px 10px",
   borderRadius: 5,
@@ -18,11 +18,11 @@ const StyledFormControl = styled(FormControl)({
   maxWidth: 900,
 });
 
-const StyledTextfield = styled(TextField)({
+export const StyledTextfield = styled(TextField)({
   margin: "20px 20px",
 });
 
-const StyledButton = styled(Button)({
+export const StyledButton = styled(Button)({
     margin:'20px 40%',
     background:'#3cb371'
 })
@@ -35,6 +35,11 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (!name || !comments || cgpa === 0) {
+      setFormError('All Field are required')
+      return
+    } 
+    setFormError(null)
     console.log({name,comments,cgpa})
   }
 
@@ -75,6 +80,8 @@ const Create = () => {
           }}
           sx={{color:'#3cb371', margin:'10px 30px'}}
         />
+        {formError && <Typography 
+          color='error' sx={{display:'flex',alignItems:'center',justifyContent:'center'}}>{formError}</Typography>}
         <StyledButton variant="contained" onClick={handleSubmit}>Submit</StyledButton>
       </StyledFormControl>
     </StyledBox>

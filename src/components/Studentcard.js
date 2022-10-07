@@ -43,12 +43,12 @@ const StudentCard = ({ student,deleteStudent }) => {
           >
             <Rating
               name="read-only"
-              value={student.cgpa.toString()}
+              value={student.cgpa}
               readOnly
               sx={{ color: "#3cb371" }}
             />
             <Stack direction="row">
-              <Link to={`\${student.id}`}>
+              <Link to={`/${student.id}`}>
                 <IconButton aria-label="edit" color="secondary">
                   <Edit />
                 </IconButton>
