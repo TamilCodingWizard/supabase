@@ -18,7 +18,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       setIsFetching(true)
-      const { data, error } = await supabase.from("Students").select();
+      const { data, error } = await supabase.from("Students").select().order('id', { ascending: false });
 
       if (error) {
         setFetchError('Something went wrong')

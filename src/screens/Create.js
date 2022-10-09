@@ -1,6 +1,8 @@
 import { Box, Button, FormControl, Rating, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { styled } from "@mui/material";
+import supabase from './../config/supabase';
+import { useNavigate } from 'react-router-dom';
 
 export const StyledBox = styled(Box)({
   display: "flex",
@@ -32,14 +34,25 @@ const Create = () => {
   const [comments, setComments] = useState("");
   const [cgpa, setCgpa] = useState(2);
   const [formError, setFormError] = useState(null);
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!name || !comments || cgpa === 0) {
       setFormError('All Field are required')
       return
     } 
     setFormError(null)
+    const {data,error} = await supabase.from('Students').insert({name,comments,cgpa})
+
+    if (error) {
+      console.log(error)
+      setFormError('All fields are mandatory')
+    }
+    if (data) {
+      setFormError(null)
+      navigate('/')
+    }
     console.log({name,comments,cgpa})
   }
 
