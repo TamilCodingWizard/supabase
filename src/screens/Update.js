@@ -1,22 +1,56 @@
 import {  Rating, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyledBox, StyledButton, StyledFormControl, StyledTextfield } from './Create';
+import supabase from './../config/supabase';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Update = () => {
+  const {id} = useParams()
+  const navigate = useNavigate()
   const [name, setName] = useState("");
   const [comments, setComments] = useState("");
   const [cgpa, setCgpa] = useState(2);
   const [formError, setFormError] = useState(null);
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const fetchStudent = async () => {
+        const {data,error} = await supabase.from('Students').select().eq('id',id).single()
+
+        if (error) {
+          console.log(error)
+          setFormError('Something went wrong')
+        }
+        if (data) {
+          setName(data.name)
+          setComments(data.comments)
+          setCgpa(data.cgpa)
+        }
+    }
+
+    fetchStudent()
+
+  },[id])
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!name || !comments || cgpa === 0) {
       setFormError('All Field are required')
       return
     } 
     setFormError(null)
+
+    const {data,error} = await supabase.from('Students').update({name,comments,cgpa}).eq('id',id)
+
+    if (error) {
+      console.log(error)
+      setFormError('Something went wrong')
+    }
+    if (data) {
+      navigate('/')
+    }
     console.log({name,comments,cgpa})
   }
 
@@ -59,7 +93,7 @@ const Update = () => {
         />
         {formError && <Typography 
           color='error' sx={{display:'flex',alignItems:'center',justifyContent:'center'}}>{formError}</Typography>}
-        <StyledButton variant="contained" onClick={handleSubmit}>Edit</StyledButton>
+        <StyledButton variant="contained" onClick={handleSubmit}>Update</StyledButton>
       </StyledFormControl>
     </StyledBox>
   );
