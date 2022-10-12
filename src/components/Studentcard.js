@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import supabase from './../config/supabase';
 
 const StyledCard = styled(Card)({
   minWidth: 150,
@@ -23,8 +24,17 @@ const StyledCard = styled(Card)({
 
 const StudentCard = ({ student,deleteStudent }) => {
 
-  const handleDelete = (id) => {
-    deleteStudent(id)
+  const handleDelete = async (id) => {
+
+    const {data,error} = await supabase.from('Students').delete().eq('id',id)
+
+    if (error) {
+      console.log(error)
+    }
+    if (data) {
+      deleteStudent(id)
+    }
+    
   }
   
   return (
